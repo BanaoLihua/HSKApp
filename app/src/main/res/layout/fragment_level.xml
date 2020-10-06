@@ -8,6 +8,11 @@
     android:background="#fde"
     tools:context=".MainActivity">
 
+    <ListView
+        android:id="@+id/unit_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/text_fragment"
         android:layout_width="wrap_content"

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LevelActivity extends AppCompatActivity {
 
     private TextView level1,level2,level3,level4,level5,level6;
@@ -57,11 +60,18 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "1級";
                     Integer voc_count = 150;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
+                    // LevelFragmentに値を渡す
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
+            /** 処理の邪魔なので、まずは1級から
             // 2級
             level2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +86,7 @@ public class LevelActivity extends AppCompatActivity {
                     String str = "2級";
                     Integer voc_count = 300;
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,));
                     fragmentTransaction.commit();
                 }
             });
@@ -152,6 +162,7 @@ public class LevelActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                 }
             });
+             */
         }
     }
 }

@@ -7,16 +7,22 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class LevelFragment extends Fragment {
 
-    public static LevelFragment newInstance(String str,int voc_count) {
+    public static LevelFragment newInstance(String str,Integer voc_count, ArrayList unit_list) {
         LevelFragment fragment = new LevelFragment();
         // Bundle にパラメータを設定
         Bundle barg = new Bundle();
         barg.putString("級", str);
         barg.putInt("語彙数", voc_count);
+        barg.putStringArrayList("単元", unit_list);
         fragment.setArguments(barg);
         return fragment;
     }
@@ -35,12 +41,25 @@ public class LevelFragment extends Fragment {
 
         Bundle args = getArguments();
         if(args != null ){
+            // パラメータの受取
             String str = args.getString("級");
             Integer get_int = args.getInt("語彙数");
             String voc_counts = get_int.toString();
+            ArrayList unit_list = args.getStringArrayList("単元");
 
+            // 単元一覧をListViewで表示
+            ListView listView = getActivity().findViewById(R.id.unit_list);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, unit_list);
+            listView.setAdapter(arrayAdapter);
+            // Todo: ListViewをクリックで遷移させる。参考：https://moewe-net.com/android/listview
+
+            // 適当に受け取ったパラメータを表示
             TextView textView = view.findViewById(R.id.text_fragment);
             textView.setText(str + "/" + voc_counts + "語");
         }
+
+
+
+
     }
 }
