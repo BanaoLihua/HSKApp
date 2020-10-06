@@ -1,5 +1,6 @@
 package com.example.hskapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,13 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class LevelFragment extends Fragment {
+public class LevelFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     public static LevelFragment newInstance(String str,Integer voc_count, ArrayList unit_list) {
         LevelFragment fragment = new LevelFragment();
@@ -51,15 +53,20 @@ public class LevelFragment extends Fragment {
             ListView listView = getActivity().findViewById(R.id.unit_list);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, unit_list);
             listView.setAdapter(arrayAdapter);
-            // Todo: ListViewをクリックで遷移させる。参考：https://moewe-net.com/android/listview
+            listView.setOnItemClickListener(this);
 
             // 適当に受け取ったパラメータを表示
             TextView textView = view.findViewById(R.id.text_fragment);
             textView.setText(str + "/" + voc_counts + "語");
         }
-
-
-
-
+    }
+    // ListViewのアイテムを選択したら単元パラメータと共にExerciseActivityへ遷移する処理
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), ExerciseActivity.class);
+        String selectedItem = parent.getAdapter().getItem(position).toString();
+        System.out.println(selectedItem);
+        intent.putExtra("Unit", selectedItem);
+        startActivity(intent);
     }
 }

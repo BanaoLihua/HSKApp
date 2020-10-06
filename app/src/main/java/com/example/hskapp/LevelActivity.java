@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LevelActivity extends AppCompatActivity {
 
@@ -71,7 +70,6 @@ public class LevelActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
                 }
             });
-            /** 処理の邪魔なので、まずは1級から
             // 2級
             level2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,8 +83,13 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "2級";
                     Integer voc_count = 300;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
@@ -103,8 +106,13 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "3級";
                     Integer voc_count = 600;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
@@ -121,8 +129,13 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "4級";
                     Integer voc_count = 1200;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
@@ -139,8 +152,13 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "5級";
                     Integer voc_count = 2500;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
@@ -157,12 +175,16 @@ public class LevelActivity extends AppCompatActivity {
                     // パラメータを設定
                     String str = "6級";
                     Integer voc_count = 5000;
+                    ArrayList<String> unit_list = new ArrayList<>();
+                    unit_list.add("noun01");
+                    unit_list.add("noun02");
+                    unit_list.add("verb01");
+
                     fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count));
+                            LevelFragment.newInstance(str,voc_count,unit_list));
                     fragmentTransaction.commit();
                 }
             });
-             */
         }
     }
 }
