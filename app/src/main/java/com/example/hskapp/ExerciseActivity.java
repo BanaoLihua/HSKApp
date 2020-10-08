@@ -60,13 +60,26 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 num = num + 1;
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.replace(R.id.container,
-                        ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin));
-                fragmentTransaction.commit();
+
+                if(num >= voc_cn.length) {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.container,
+                            ExerciseFragmentResult.newInstance(num));
+                    fragmentTransaction.commit();
+                }
+                else {
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.container,
+                            ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin));
+                    fragmentTransaction.commit();
+                }
             }
         });
+
+
     }
 }

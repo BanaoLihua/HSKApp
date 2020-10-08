@@ -65,7 +65,6 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity().getApplicationContext(), ExerciseActivity.class);
         String selectedItem = parent.getAdapter().getItem(position).toString();
-        System.out.println(selectedItem);
         intent.putExtra("Unit", selectedItem);
         startActivity(intent);
     }
