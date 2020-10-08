@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HSKApp</string>
+    <string name="incorrect">わからない</string>
+    <string name="correct">わかった</string>
 </resources>

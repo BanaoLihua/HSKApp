@@ -45,6 +45,7 @@ public class LevelActivity extends AppCompatActivity {
         level6.setText("HSK6級");
 
         // 各級のクリック処理
+        // todo: 暇なときにクリック時の処理を関数にまとめておく
         if(savedInstanceState == null) {
             // 1級
             level1.setOnClickListener(new View.OnClickListener() {
