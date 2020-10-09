@@ -65,7 +65,7 @@ public class ExerciseActivity extends AppCompatActivity {
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.container,
+                    fragmentTransaction.replace(R.id.result,
                             ExerciseFragmentResult.newInstance(num));
                     fragmentTransaction.commit();
                 }
