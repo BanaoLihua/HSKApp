@@ -1,16 +1,13 @@
 package com.example.hskapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 public class ExerciseFragmentResult extends Fragment {
     public static ExerciseFragmentResult newInstance(int num) {
@@ -36,8 +33,11 @@ public class ExerciseFragmentResult extends Fragment {
             @Override
             public void onClick(View v) {
                 ((ExerciseActivity)getContext()).finish();
-
             }
         });
+
+        // 「次へ」ボタン押下時の処理
+        Button toNext = view.findViewById(R.id.toNext);
+
     }
 }

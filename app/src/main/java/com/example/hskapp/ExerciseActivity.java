@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class ExerciseActivity extends AppCompatActivity {
@@ -45,14 +44,8 @@ public class ExerciseActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.unit);
         textView.setText(unit);
 
-        // 以下から
-        // todo: FragmentManager呼び出しが冗長なので関数でまとめておく
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container,
-                ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin));
-        fragmentTransaction.commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin)).commit();
 
         // 「わかった」押下時の処理
         Button correctButton = findViewById(R.id.correct);
@@ -62,22 +55,15 @@ public class ExerciseActivity extends AppCompatActivity {
                 num = num + 1;
 
                 if(num >= voc_cn.length) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.add(R.id.result,
-                            ExerciseFragmentResult.newInstance(num));
-                    fragmentTransaction.commit();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num)).commit();
                 }
                 else {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.container,
-                            ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin));
-                    fragmentTransaction.commit();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin)).commit();
                 }
             }
         });
-
 
     }
 }
