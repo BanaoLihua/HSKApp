@@ -2,4 +2,6 @@
     <string name="app_name">HSKApp</string>
     <string name="incorrect">わからない</string>
     <string name="correct">わかった</string>
+    <string name="toNext">次へ</string>
+    <string name="toList">一覧へ</string>
 </resources>

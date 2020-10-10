@@ -45,147 +45,64 @@ public class LevelActivity extends AppCompatActivity {
         level6.setText("HSK6級");
 
         // 各級のクリック処理
-        // todo: 暇なときにクリック時の処理を関数にまとめておく
         if(savedInstanceState == null) {
             // 1級
             level1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "1級";
-                    Integer voc_count = 150;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    // LevelFragmentに値を渡す
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("1級", 150);
                 }
             });
             // 2級
             level2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "2級";
-                    Integer voc_count = 300;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("2級", 300);
                 }
             });
             // 3級
             level3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "3級";
-                    Integer voc_count = 600;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("3級", 600);
                 }
             });
             // 4級
             level4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "4級";
-                    Integer voc_count = 1200;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("4級", 1200);
                 }
             });
             // 5級
             level5.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "5級";
-                    Integer voc_count = 2500;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("5級", 2500);
                 }
             });
             // 6級
             level6.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                    // BackStackを設定
-                    fragmentTransaction.addToBackStack(null);
-
-                    // パラメータを設定
-                    String str = "6級";
-                    Integer voc_count = 5000;
-                    ArrayList<String> unit_list = new ArrayList<>();
-                    unit_list.add("noun01");
-                    unit_list.add("noun02");
-                    unit_list.add("verb01");
-
-                    fragmentTransaction.add(R.id.container,
-                            LevelFragment.newInstance(str,voc_count,unit_list));
-                    fragmentTransaction.commit();
+                    setLevelFragment("6級", 5000);
                 }
             });
         }
+    }
+    // LevelFragmentへ渡す関数
+    public void setLevelFragment(String str, Integer voc_count) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // パラメータを設定
+        ArrayList<String> unit_list = new ArrayList<>();
+        unit_list.add("名詞1");
+        unit_list.add("名詞2");
+        unit_list.add("動詞1");
+
+        fragmentTransaction.add(R.id.container,
+                LevelFragment.newInstance(str,voc_count,unit_list));
+        fragmentTransaction.commit();
     }
 }
