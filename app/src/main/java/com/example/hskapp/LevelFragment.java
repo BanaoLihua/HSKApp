@@ -63,9 +63,11 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
     // ListViewのアイテムを選択したら単元パラメータと共にExerciseActivityへ遷移する処理
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String selectedLevel = getArguments().getString("級");
+        String selectedUnit = parent.getAdapter().getItem(position).toString();
         Intent intent = new Intent(getActivity().getApplicationContext(), ExerciseActivity.class);
-        String selectedItem = parent.getAdapter().getItem(position).toString();
-        intent.putExtra("Unit", selectedItem);
+        intent.putExtra("Level", selectedLevel);
+        intent.putExtra("Unit", selectedUnit);
         startActivity(intent);
     }
 }

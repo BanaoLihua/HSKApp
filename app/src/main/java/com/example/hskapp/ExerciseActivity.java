@@ -38,11 +38,16 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        // LevelFragmentから値を受け取る
+        // LevelFragmentから値を受け取って表示
         Intent intent = getIntent();
+        String level = intent.getStringExtra("Level");
         String unit = intent.getStringExtra("Unit");
-        TextView textView = findViewById(R.id.unit);
-        textView.setText(unit);
+        TextView textLevel = findViewById(R.id.level);
+        TextView textUnit = findViewById(R.id.unit);
+        textLevel.setText(level);
+        textUnit.setText(unit);
+
+        // Todo: 受け取った級と単元の情報を基にDBから表示させる
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, voc_cn, voc_jp, pinyin)).commit();
