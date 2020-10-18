@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class LevelFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public static LevelFragment newInstance(String str,Integer voc_count, ArrayList unit_list) {
+    public static LevelFragment newInstance(Integer voc_count,String selected_level, ArrayList unit_list) {
         LevelFragment fragment = new LevelFragment();
         // Bundle にパラメータを設定
         Bundle barg = new Bundle();
-        barg.putString("級", str);
         barg.putInt("語彙数", voc_count);
+        barg.putString("級",selected_level );
         barg.putStringArrayList("単元", unit_list);
         fragment.setArguments(barg);
         return fragment;
@@ -44,7 +44,7 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
         Bundle args = getArguments();
         if(args != null ){
             // パラメータの受取
-            String str = args.getString("級");
+            String selected_level = args.getString("級");
             Integer get_int = args.getInt("語彙数");
             String voc_counts = get_int.toString();
             ArrayList unit_list = args.getStringArrayList("単元");
@@ -57,7 +57,7 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
 
             // 適当に受け取ったパラメータを表示
             TextView textView = view.findViewById(R.id.text_fragment);
-            textView.setText(str + "/" + voc_counts + "語");
+            textView.setText(selected_level + "級/" + voc_counts + "語");
         }
     }
     // ListViewのアイテムを選択したら単元パラメータと共にExerciseActivityへ遷移する処理
