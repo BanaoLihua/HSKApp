@@ -98,7 +98,7 @@ public class LevelActivity extends AppCompatActivity {
         // 単元パラメータ
         ArrayList<String> unit_list = new ArrayList<>();
         int unit_num = 1;
-        for (; unit_num < 15;) {
+        for (; unit_num <= 15;) {
             unit_list.add(String.valueOf(unit_num));
             unit_num++;
         }
