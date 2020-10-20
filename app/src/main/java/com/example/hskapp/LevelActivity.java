@@ -98,9 +98,48 @@ public class LevelActivity extends AppCompatActivity {
         // 単元パラメータ
         ArrayList<String> unit_list = new ArrayList<>();
         int unit_num = 1;
-        for (; unit_num <= 15;) {
-            unit_list.add(String.valueOf(unit_num));
-            unit_num++;
+
+        if(selected_level == "1") {
+            Integer max_unit = 15;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
+        }
+        else if(selected_level == "2") {
+            Integer max_unit = 15;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
+        }
+        else if(selected_level == "3") {
+            Integer max_unit = 29;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
+        }
+        else if(selected_level == "4") {
+            Integer max_unit = 60;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
+        }
+        else if(selected_level == "5") {
+            Integer max_unit = 130;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
+        }
+        else if(selected_level == "6") {
+            Integer max_unit = 251;
+            for (; unit_num <= max_unit;) {
+                unit_list.add(String.valueOf(unit_num));
+                unit_num++;
+            }
         }
 
         fragmentTransaction.add(R.id.container,

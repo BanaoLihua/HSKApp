@@ -1,3 +1,4 @@
+/**ここでは、assetsのDBを不正に改竄させないために、最初にDBを開いたらデバイス側に保存される。DBを書き換えたい場合はデバイスの初期化をも必要**/
 package com.example.hskapp;
 
 import android.content.Context;
