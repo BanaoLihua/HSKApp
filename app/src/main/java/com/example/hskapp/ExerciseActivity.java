@@ -27,6 +27,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private DatabaseHelper helper;
 
     public static Integer num = 0;
+    public static ArrayList<Integer> incorrect_list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,17 +74,36 @@ public class ExerciseActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
-        // 「わかった」押下時の処理
+        /**「分かった」ボタン押下時の処理**/
+
         Button correctButton = findViewById(R.id.correct);
         correctButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 num++;
 
+                if(num >= list_voc_cn.size()) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin )).commit();
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+            }
+        });
+        /**「分からない」ボタン押下時の処理**/
+        final Button incorrectButton = findViewById(R.id.incorrect);
+        incorrectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incorrect_list.add(num);
+                num++;
 
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num)).commit();
+                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin)).commit();
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
