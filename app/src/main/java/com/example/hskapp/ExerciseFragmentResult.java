@@ -61,6 +61,12 @@ public class ExerciseFragmentResult extends Fragment {
         // 「次へ」ボタン押下時の処理
 
         Button toNext = view.findViewById(R.id.toNext);
+        toNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
 
     }
 }

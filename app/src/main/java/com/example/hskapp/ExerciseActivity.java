@@ -118,6 +118,7 @@ public class ExerciseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if(num > 0) {
             num--;
+            incorrect_list.remove(incorrect_list.size() - 1);
         }
         super.onBackPressed();
     }
