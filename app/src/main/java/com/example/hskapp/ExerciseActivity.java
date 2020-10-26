@@ -103,7 +103,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin)).commit();
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

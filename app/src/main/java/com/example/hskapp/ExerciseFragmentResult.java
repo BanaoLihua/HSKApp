@@ -56,7 +56,7 @@ public class ExerciseFragmentResult extends Fragment {
             }
         });
 
-        // Todo: バックキーを押した際の挙動をどうするか？参考：https://qiita.com/takenori-ooba/items/030bfd6d05f783b4d33a
+        // Todo: バックキーを押した際の挙動をどうするか？
         // Todo: 「次へ」ボタン押下時の処理
         // 「次へ」ボタン押下時の処理
 
@@ -64,9 +64,9 @@ public class ExerciseFragmentResult extends Fragment {
         toNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                /**LevelFragmentをlistViewで動かさない可能性があるので後回し**/
             }
         });
-
     }
+
 }
