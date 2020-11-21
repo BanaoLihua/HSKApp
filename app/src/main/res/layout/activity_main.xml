@@ -1,29 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:layout_gravity="center"
     tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="406dp"
+        android:layout_height="408dp"
+        android:fontFamily="sans-serif"
+        android:paddingTop="200dp"
+        android:text="HSK単語学習アプリ"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="40sp" />
+
 
     <Button
         android:id="@+id/button_level"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignBottom="@id/textView"
+        android:background="@drawable/button_background1"
         android:text="級別学習"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20dp"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/button_myvoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="279dp"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="50dp"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignBottom="@id/textView"
+        android:background="@drawable/button_background2"
         android:text="My単語帳"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="20dp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
