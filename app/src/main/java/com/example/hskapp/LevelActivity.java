@@ -20,29 +20,12 @@ public class LevelActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
 
-        // 戻るボタン（Activityの終了）
-        Button returnButton = findViewById(R.id.return_button);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // parts_levelを取得
-        level1 = findViewById(R.id.level1).findViewById(R.id.level);
-        level2 = findViewById(R.id.level2).findViewById(R.id.level);
-        level3 = findViewById(R.id.level3).findViewById(R.id.level);
-        level4 = findViewById(R.id.level4).findViewById(R.id.level);
-        level5 = findViewById(R.id.level5).findViewById(R.id.level);
-        level6 = findViewById(R.id.level6).findViewById(R.id.level);
-
-        level1.setText("HSK1級");
-        level2.setText("HSK2級");
-        level3.setText("HSK3級");
-        level4.setText("HSK4級");
-        level5.setText("HSK5級");
-        level6.setText("HSK6級");
+        level1 = findViewById(R.id.level1);
+        level2 = findViewById(R.id.level2);
+        level3 = findViewById(R.id.level3);
+        level4 = findViewById(R.id.level4);
+        level5 = findViewById(R.id.level5);
+        level6 = findViewById(R.id.level6);
 
         // 各級のクリック処理
         if(savedInstanceState == null) {
@@ -143,7 +126,7 @@ public class LevelActivity extends AppCompatActivity {
             }
         }
 
-        fragmentTransaction.add(R.id.container,
+        fragmentTransaction.replace(R.id.container,
                 LevelFragment.newInstance(voc_count,selected_level,unit_list));
         fragmentTransaction.commit();
     }
