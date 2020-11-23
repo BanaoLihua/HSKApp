@@ -77,7 +77,6 @@ public class LevelActivity extends AppCompatActivity {
     public void setLevelFragment(Integer voc_count, String selected_level) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
 
         // 単元パラメータ
         ArrayList<String> unit_list = new ArrayList<>();

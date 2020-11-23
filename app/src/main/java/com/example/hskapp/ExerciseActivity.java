@@ -75,6 +75,7 @@ public class ExerciseActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
         /**「分かった」ボタン押下時の処理**/
+        //todo: 「分かった」ボタン押下後にバックキーを押すとエラーが起きる不具合
 
         Button correctButton = findViewById(R.id.correct);
         correctButton.setOnClickListener(new View.OnClickListener() {
