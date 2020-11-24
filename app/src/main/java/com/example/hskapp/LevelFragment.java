@@ -10,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,8 +33,9 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
                              ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_level,
+        View view =  inflater.inflate(R.layout.fragment_level,
                 container, false);
+        return view;
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -49,11 +49,11 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
             String voc_counts = get_int.toString();
             ArrayList unit_list = args.getStringArrayList("単元");
 
-            // 単元一覧をListViewで表示
-            ListView listView = getActivity().findViewById(R.id.unit_list);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, unit_list);
-            listView.setAdapter(arrayAdapter);
-            listView.setOnItemClickListener(this);
+            // 単元一覧をGridViewで表示
+            GridView gridView = view.findViewById(R.id.gridview);
+            GridAdapter adapter = new GridAdapter(getActivity().getApplicationContext(), R.layout.grid_items, unit_list);
+            gridView.setAdapter(adapter);
+            gridView.setOnItemClickListener(this);
 
             // 適当に受け取ったパラメータを表示
             TextView textView = view.findViewById(R.id.text_fragment);
@@ -65,6 +65,7 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedLevel = getArguments().getString("級");
         String selectedUnit = parent.getAdapter().getItem(position).toString();
+        System.out.println(selectedUnit);
         Intent intent = new Intent(getActivity().getApplicationContext(), ExerciseActivity.class);
         intent.putExtra("Level", selectedLevel);
         intent.putExtra("Unit", selectedUnit);
