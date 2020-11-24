@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -44,9 +43,6 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
         Bundle args = getArguments();
         if(args != null ){
             // パラメータの受取
-            String selected_level = args.getString("級");
-            Integer get_int = args.getInt("語彙数");
-            String voc_counts = get_int.toString();
             ArrayList unit_list = args.getStringArrayList("単元");
 
             // 単元一覧をGridViewで表示
@@ -55,9 +51,6 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
             gridView.setAdapter(adapter);
             gridView.setOnItemClickListener(this);
 
-            // 適当に受け取ったパラメータを表示
-            TextView textView = view.findViewById(R.id.text_fragment);
-            textView.setText(selected_level + "級/" + voc_counts + "語");
         }
     }
     // ListViewのアイテムを選択したら単元パラメータと共にExerciseActivityへ遷移する処理
