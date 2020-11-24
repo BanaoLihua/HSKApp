@@ -1,8 +1,8 @@
 package com.example.hskapp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +34,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(150, "1");
+                    levelButtonChangeToNormal();
+                    level1.setBackgroundResource(R.drawable.level_button_selected_1);
                 }
             });
             // 2級
@@ -41,6 +43,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(300, "2");
+                    levelButtonChangeToNormal();
+                    level2.setBackgroundResource(R.drawable.level_button_selected_2);
                 }
             });
             // 3級
@@ -48,6 +52,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(600, "3");
+                    levelButtonChangeToNormal();
+                    level3.setBackgroundResource(R.drawable.level_button_selected_3);
                 }
             });
             // 4級
@@ -55,6 +61,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(1200, "4");
+                    levelButtonChangeToNormal();
+                    level4.setBackgroundResource(R.drawable.level_button_selected_4);
                 }
             });
             // 5級
@@ -62,6 +70,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(2500, "5");
+                    levelButtonChangeToNormal();
+                    level5.setBackgroundResource(R.drawable.level_button_selected_5);
                 }
             });
             // 6級
@@ -69,6 +79,8 @@ public class LevelActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setLevelFragment(5000, "6");
+                    levelButtonChangeToNormal();
+                    level6.setBackgroundResource(R.drawable.level_button_selected_6);
                 }
             });
         }
@@ -128,5 +140,13 @@ public class LevelActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.container,
                 LevelFragment.newInstance(voc_count,selected_level,unit_list));
         fragmentTransaction.commit();
+    }
+    public void levelButtonChangeToNormal() {
+        level1.setBackgroundResource(R.drawable.level_button_normal);
+        level2.setBackgroundResource(R.drawable.level_button_normal);
+        level3.setBackgroundResource(R.drawable.level_button_normal);
+        level4.setBackgroundResource(R.drawable.level_button_normal);
+        level5.setBackgroundResource(R.drawable.level_button_normal);
+        level6.setBackgroundResource(R.drawable.level_button_normal);
     }
 }
