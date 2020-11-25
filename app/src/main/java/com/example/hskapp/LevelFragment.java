@@ -43,11 +43,12 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
         Bundle args = getArguments();
         if(args != null ){
             // パラメータの受取
+            String selected_level = args.getString("級");
             ArrayList unit_list = args.getStringArrayList("単元");
 
             // 単元一覧をGridViewで表示
             GridView gridView = view.findViewById(R.id.gridview);
-            GridAdapter adapter = new GridAdapter(getActivity().getApplicationContext(), R.layout.grid_items, unit_list);
+            GridAdapter adapter = new GridAdapter(getActivity().getApplicationContext(), R.layout.grid_items, unit_list, selected_level);
             gridView.setAdapter(adapter);
             gridView.setOnItemClickListener(this);
 
