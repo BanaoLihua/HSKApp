@@ -41,8 +41,8 @@ public class ExerciseActivity extends AppCompatActivity {
         String unit = intent.getStringExtra("Unit");
         TextView textLevel = findViewById(R.id.level);
         TextView textUnit = findViewById(R.id.unit);
-        textLevel.setText("級:" + level);
-        textUnit.setText("単元:" + unit);
+        textLevel.setText(level + "級");
+        textUnit.setText("その" + unit);
 
         /** DB操作開始 **/
         helper = new DatabaseHelper(this);
