@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.io.IOException;
@@ -111,6 +112,19 @@ public class ExerciseActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
                     fragmentTransaction.addToBackStack(null);
                 }
+            }
+        });
+
+        /**「答え」ボタン押下時の処理**/
+        Button answerButton = findViewById(R.id.answer);
+        answerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+                TextView voc_jp = fragment.getActivity().findViewById(R.id.voc_jp);
+                TextView pinyin = fragment.getActivity().findViewById(R.id.pinyin);
+                voc_jp.setVisibility(View.VISIBLE);
+                pinyin.setVisibility(View.VISIBLE);
             }
         });
     }
