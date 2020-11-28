@@ -59,7 +59,6 @@ public class LevelFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String selectedLevel = getArguments().getString("級");
         String selectedUnit = parent.getAdapter().getItem(position).toString();
-        System.out.println(selectedUnit);
         Intent intent = new Intent(getActivity().getApplicationContext(), ExerciseActivity.class);
         intent.putExtra("Level", selectedLevel);
         intent.putExtra("Unit", selectedUnit);

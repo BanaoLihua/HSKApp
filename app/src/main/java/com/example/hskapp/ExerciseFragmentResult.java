@@ -1,16 +1,20 @@
 package com.example.hskapp;
 
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ExerciseFragmentResult extends Fragment {
     public static ExerciseFragmentResult newInstance(int num, ArrayList<Integer> incorrect_list,ArrayList<String> voc_cn, ArrayList<String> voc_jp, ArrayList<String> pinyin) {
@@ -24,7 +28,8 @@ public class ExerciseFragmentResult extends Fragment {
         fragment.setArguments(barg);
         return fragment;
     }
-    public static ArrayList<String> incorrect_list_char = new ArrayList<>();
+    public static ArrayList<String> result_list = new ArrayList<>();
+    public ListView listView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,13 +40,20 @@ public class ExerciseFragmentResult extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        /**「分からない」が選択された問題番号のリスト（incorrect_list）と対応する問題番号を照合して新たにincorrect_list_charを作って表示**/
-        TextView incorrect = view.findViewById(R.id.incorrect);
-        for(Integer i : getArguments().getIntegerArrayList("間違い")) {
-            String incorrect_voc_cn_list = getArguments().getStringArrayList("中国語").get(i);
-            incorrect_list_char.add(incorrect_voc_cn_list);
-        }
-        incorrect.setText(incorrect_list_char.toString());
+        /**リザルト画面に表示されるテキストを作成してListViewへ**/
+       for(int i=0; i<getArguments().getInt("番号"); i++) {
+           String result_cell = getArguments().getStringArrayList("中国語").get(i) + "(" + getArguments().getStringArrayList("拼音").get(i) + ")" + "：" + getArguments().getStringArrayList("日本語").get(i);
+           if(getArguments().getIntegerArrayList("間違い").contains(i)) {
+               result_cell = "❌ " + result_cell;
+           }else {
+               result_cell = "⭕ " + result_cell;
+           }
+           result_list.add(result_cell);
+       }
+       final ArrayAdapter adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, result_list);
+       ListView listView = (ListView) view.findViewById(R.id.result_list);
+       listView.setAdapter(adapter);
+
 
         /**「一覧へ」ボタン押下時の処理：ExerciseActivityのfinishメソッドを呼び出してExerciseActivityを廃棄・numとincorrect_listをリセット **/
         Button toList = view.findViewById(R.id.toList);
@@ -50,7 +62,7 @@ public class ExerciseFragmentResult extends Fragment {
             public void onClick(View v) {
                 ((ExerciseActivity)getContext()).num = 0;
                 ((ExerciseActivity)getContext()).incorrect_list = new ArrayList<>();
-                incorrect_list_char = new ArrayList<>();
+                result_list = new ArrayList<>();
 
                 ((ExerciseActivity)getContext()).finish();
             }
