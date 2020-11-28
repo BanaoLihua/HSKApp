@@ -39,7 +39,7 @@ public class ExerciseActivity extends AppCompatActivity {
         // LevelFragmentから値を受け取って表示
         Intent intent = getIntent();
         String level = intent.getStringExtra("Level");
-        String unit = intent.getStringExtra("Unit");
+        final String unit = intent.getStringExtra("Unit");
         TextView textLevel = findViewById(R.id.level);
         TextView textUnit = findViewById(R.id.unit);
         textLevel.setText(level + "級");
@@ -85,7 +85,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin )).commit();
+                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -104,7 +104,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

@@ -1,6 +1,5 @@
 package com.example.hskapp;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ExerciseFragmentResult extends Fragment {
-    public static ExerciseFragmentResult newInstance(int num, ArrayList<Integer> incorrect_list,ArrayList<String> voc_cn, ArrayList<String> voc_jp, ArrayList<String> pinyin) {
+    public static ExerciseFragmentResult newInstance(int num, ArrayList<Integer> incorrect_list,ArrayList<String> voc_cn, ArrayList<String> voc_jp, ArrayList<String> pinyin, String unit) {
         ExerciseFragmentResult fragment = new ExerciseFragmentResult();
         Bundle barg = new Bundle();
         barg.putInt("番号", num);
@@ -25,11 +23,11 @@ public class ExerciseFragmentResult extends Fragment {
         barg.putStringArrayList("中国語", voc_cn);
         barg.putStringArrayList("日本語", voc_jp);
         barg.putStringArrayList("拼音", pinyin);
+        barg.putString("単元", unit);
         fragment.setArguments(barg);
         return fragment;
     }
     public static ArrayList<String> result_list = new ArrayList<>();
-    public ListView listView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +37,9 @@ public class ExerciseFragmentResult extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        TextView resultTitle = view.findViewById(R.id.result_title);
+        resultTitle.setText("演習結果・その" + getArguments().getString("単元"));
 
         /**リザルト画面に表示されるテキストを作成してListViewへ**/
        for(int i=0; i<getArguments().getInt("番号"); i++) {
