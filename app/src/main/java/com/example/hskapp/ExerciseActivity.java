@@ -76,7 +76,6 @@ public class ExerciseActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
         /**「分かった」ボタン押下時の処理**/
-        //todo: 「分かった」ボタン押下後にバックキーを押すとエラーが起きる不具合
 
         Button correctButton = findViewById(R.id.correct);
         correctButton.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +130,7 @@ public class ExerciseActivity extends AppCompatActivity {
     /**backキー押下時の処理・戻るを押すとnumも減るようにする**/
     @Override
     public void onBackPressed() {
-        if(num > 0) {
+        if(num > 0 && incorrect_list.contains(num)) {
             num--;
             incorrect_list.remove(incorrect_list.size() - 1);
         }
