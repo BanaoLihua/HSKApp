@@ -1,3 +1,6 @@
+//todo: 「次へ」2周目以降のバックキーの挙動をどうにかする
+//todo: 最後のユニットで「次へ」を無効化
+
 package com.example.hskapp;
 
 import android.content.Intent;
@@ -17,8 +20,6 @@ import java.util.ArrayList;
 
 public class ExerciseActivity extends AppCompatActivity {
 
-
-    // グローバル変数を定義
     ArrayList<Integer> list_num = new ArrayList<>();
     ArrayList<String> list_voc_cn = new ArrayList<>();
     ArrayList<String> list_voc_jp = new ArrayList<>();
@@ -35,7 +36,6 @@ public class ExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-
         // LevelFragmentから値を受け取って表示
         Intent intent = getIntent();
         String level = intent.getStringExtra("Level");
@@ -45,66 +45,15 @@ public class ExerciseActivity extends AppCompatActivity {
         textLevel.setText(level + "級");
         textUnit.setText("その" + unit);
 
-        /** DB操作開始 **/
         getFromDB(unit, level);
-        /** DB操作終了 **/
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
-        /**「分かった」ボタン押下時の処理**/
+        pressCorrect(unit);
 
-        Button correctButton = findViewById(R.id.correct);
-        correctButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                num++;
+        pressIncorrect(unit);
 
-                if(num >= list_voc_cn.size()) {
-                    System.out.println(list_voc_cn);
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
-                    list_num = new ArrayList<>();
-                    list_voc_cn = new ArrayList<>();
-                    list_voc_jp = new ArrayList<>();
-                    list_pinyin = new ArrayList<>();
-                    incorrect_list = new ArrayList<>();
-                    num = 0;
-                }
-                else {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
-                    fragmentTransaction.addToBackStack(null);
-                }
-            }
-        });
-        /**「分からない」ボタン押下時の処理**/
-        final Button incorrectButton = findViewById(R.id.incorrect);
-        incorrectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                incorrect_list.add(num);
-                num++;
-
-                if(num >= list_voc_cn.size()) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
-                    list_num = new ArrayList<>();
-                    list_voc_cn = new ArrayList<>();
-                    list_voc_jp = new ArrayList<>();
-                    list_pinyin = new ArrayList<>();
-                    incorrect_list = new ArrayList<>();
-                    num = 0;
-                }
-                else {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
-                    fragmentTransaction.addToBackStack(null);
-                }
-            }
-        });
-
-        /**「答え」ボタン押下時の処理**/
         pressAnswer();
     }
     /**backキー押下時の処理・戻るを押すとnumも減るようにする**/
@@ -116,8 +65,8 @@ public class ExerciseActivity extends AppCompatActivity {
         }
         super.onBackPressed();
     }
-    /***********************************************/
 
+    /**結果画面の「次へ」ボタン押下時の処理**/
     public void goToNext(String next_unit) {
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.result);
@@ -131,68 +80,19 @@ public class ExerciseActivity extends AppCompatActivity {
         textLevel.setText(level + "級");
         textUnit.setText("その" + unit);
 
-        /** DB操作開始 **/
         getFromDB(unit, level);
-        /** DB操作終了 **/
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
-        /**「分かった」ボタン押下時の処理**/
+        pressCorrect(unit);
 
-        Button correctButton = findViewById(R.id.correct);
-        correctButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                num++;
-                if(num >= list_voc_cn.size()) {
-                    System.out.println(list_voc_cn);
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
-                    list_num = new ArrayList<>();
-                    list_voc_cn = new ArrayList<>();
-                    list_voc_jp = new ArrayList<>();
-                    list_pinyin = new ArrayList<>();
-                    incorrect_list = new ArrayList<>();
-                    num = 0;
-                }
-                else {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
-                    fragmentTransaction.addToBackStack(null);
-                }
-            }
-        });
-        /**「分からない」ボタン押下時の処理**/
-        final Button incorrectButton = findViewById(R.id.incorrect);
-        incorrectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                incorrect_list.add(num);
-                num++;
+        pressIncorrect(unit);
 
-                if(num >= list_voc_cn.size()) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
-                    list_num = new ArrayList<>();
-                    list_voc_cn = new ArrayList<>();
-                    list_voc_jp = new ArrayList<>();
-                    list_pinyin = new ArrayList<>();
-                    incorrect_list = new ArrayList<>();
-                    num = 0;
-                }
-                else {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
-                    fragmentTransaction.addToBackStack(null);
-                }
-            }
-        });
-
-        /**「答え」ボタン押下時の処理**/
         pressAnswer();
     }
 
+    /**DBから単語のデータを取ってくる関数**/
     public void getFromDB(String unit, String level) {
         helper = new DatabaseHelper(this);
         try {
@@ -220,6 +120,7 @@ public class ExerciseActivity extends AppCompatActivity {
         }
     }
 
+    /**「答え」ボタン押下時の処理**/
     public void pressAnswer(){
         Button answerButton = findViewById(R.id.answer);
         answerButton.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +131,61 @@ public class ExerciseActivity extends AppCompatActivity {
                 TextView pinyin = fragment.getActivity().findViewById(R.id.pinyin);
                 voc_jp.setVisibility(View.VISIBLE);
                 pinyin.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    /**「分かった」ボタン押下時の処理**/
+    public void pressCorrect(final String unit) {
+        Button correctButton = findViewById(R.id.correct);
+        correctButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num++;
+                if(num >= list_voc_cn.size()) {
+                    System.out.println(list_voc_cn);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+            }
+        });
+    }
+
+    /**「分からなかった」ボタン押下時の処理**/
+    public void pressIncorrect(final String unit) {
+        final Button incorrectButton = findViewById(R.id.incorrect);
+        incorrectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incorrect_list.add(num);
+                num++;
+
+                if(num >= list_voc_cn.size()) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
             }
         });
     }

@@ -73,8 +73,6 @@ public class ExerciseFragmentResult extends Fragment {
             }
         });
 
-        // Todo: バックキーを押した際の挙動をどうするか？
-        // Todo: 「次へ」ボタン押下時の処理
         // 「次へ」ボタン押下時の処理
 
         Button toNext = view.findViewById(R.id.toNext);
