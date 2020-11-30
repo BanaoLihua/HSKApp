@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import java.util.ArrayList;
 
 public class ExerciseFragmentResult extends Fragment {
-    public static ExerciseFragmentResult newInstance(int num, ArrayList<Integer> incorrect_list,ArrayList<String> voc_cn, ArrayList<String> voc_jp, ArrayList<String> pinyin, String unit) {
+    public static ExerciseFragmentResult newInstance(int num, ArrayList<Integer> incorrect_list,ArrayList<String> voc_cn, ArrayList<String> voc_jp, ArrayList<String> pinyin, String unit, String level) {
         ExerciseFragmentResult fragment = new ExerciseFragmentResult();
         Bundle barg = new Bundle();
         barg.putInt("番号", num);
@@ -24,6 +24,7 @@ public class ExerciseFragmentResult extends Fragment {
         barg.putStringArrayList("日本語", voc_jp);
         barg.putStringArrayList("拼音", pinyin);
         barg.putString("単元", unit);
+        barg.putString("級", level);
         fragment.setArguments(barg);
         return fragment;
     }
@@ -40,8 +41,6 @@ public class ExerciseFragmentResult extends Fragment {
 
         TextView resultTitle = view.findViewById(R.id.result_title);
         resultTitle.setText("演習結果・その" + getArguments().getString("単元"));
-
-        System.out.println(getArguments().getStringArrayList("中国語"));
 
         /**リザルト画面に表示されるテキストを作成してListViewへ**/
        for(int i=0; i<getArguments().getInt("番号"); i++) {
@@ -73,9 +72,13 @@ public class ExerciseFragmentResult extends Fragment {
             }
         });
 
-        // 「次へ」ボタン押下時の処理
-
+        /**「次へ」ボタン押下時の処理**/
+        Integer level = new Integer(getArguments().getString("級")).intValue();
+        Integer unit = new Integer(getArguments().getString("単元")).intValue();
         Button toNext = view.findViewById(R.id.toNext);
+
+        makeLastUnitDeleteNext(level, unit, toNext);
+
         toNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +87,28 @@ public class ExerciseFragmentResult extends Fragment {
                 ((ExerciseActivity)getContext()).goToNext(next_unit.toString());
             }
         });
+
     }
 
+    /**最後の単元で「次へ」ボタンを表示させない関数**/
+    public void makeLastUnitDeleteNext(Integer level, Integer unit, Button toNext) {
+        if((level == 1) && (unit == 15)) {
+            toNext.setVisibility((View.GONE));
+        }
+        else if((level == 2) && (unit == 15)) {
+            toNext.setVisibility((View.GONE));
+        }
+        else if((level == 3) && (unit == 29)) {
+            toNext.setVisibility((View.GONE));
+        }
+        else if((level == 4) && (unit == 60)) {
+            toNext.setVisibility((View.GONE));
+        }
+        else if((level == 5) && (unit == 130)) {
+            toNext.setVisibility((View.GONE));
+        }
+        else if((level == 6) && (unit == 251)) {
+            toNext.setVisibility((View.GONE));
+        }
+    }
 }

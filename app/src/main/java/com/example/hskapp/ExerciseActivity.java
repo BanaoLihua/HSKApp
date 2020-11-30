@@ -1,5 +1,4 @@
 //todo: 「次へ」2周目以降のバックキーの挙動をどうにかする
-//todo: 最後のユニットで「次へ」を無効化
 
 package com.example.hskapp;
 
@@ -50,9 +49,9 @@ public class ExerciseActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
-        pressCorrect(unit);
+        pressCorrect(unit, level);
 
-        pressIncorrect(unit);
+        pressIncorrect(unit, level);
 
         pressAnswer();
     }
@@ -85,11 +84,12 @@ public class ExerciseActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
 
-        pressCorrect(unit);
+        pressCorrect(unit, level);
 
-        pressIncorrect(unit);
+        pressIncorrect(unit, level);
 
         pressAnswer();
+
     }
 
     /**DBから単語のデータを取ってくる関数**/
@@ -136,16 +136,15 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     /**「分かった」ボタン押下時の処理**/
-    public void pressCorrect(final String unit) {
+    public void pressCorrect(final String unit, final String level) {
         Button correctButton = findViewById(R.id.correct);
         correctButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 num++;
                 if(num >= list_voc_cn.size()) {
-                    System.out.println(list_voc_cn);
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit, level )).commit();
                     list_num = new ArrayList<>();
                     list_voc_cn = new ArrayList<>();
                     list_voc_jp = new ArrayList<>();
@@ -163,7 +162,7 @@ public class ExerciseActivity extends AppCompatActivity {
     }
 
     /**「分からなかった」ボタン押下時の処理**/
-    public void pressIncorrect(final String unit) {
+    public void pressIncorrect(final String unit, final String level) {
         final Button incorrectButton = findViewById(R.id.incorrect);
         incorrectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +172,7 @@ public class ExerciseActivity extends AppCompatActivity {
 
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit, level)).commit();
                     list_num = new ArrayList<>();
                     list_voc_cn = new ArrayList<>();
                     list_voc_jp = new ArrayList<>();
