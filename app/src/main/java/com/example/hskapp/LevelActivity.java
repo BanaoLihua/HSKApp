@@ -83,7 +83,13 @@ public class LevelActivity extends AppCompatActivity {
                 }
             });
         }
+
+        /**初期状態で1級が選択されているようにする**/
+        setLevelFragment(150, "1");
+        levelButtonChangeToNormal();
+        level1.setBackgroundResource(R.drawable.level_button_selected_1);
     }
+
     // LevelFragmentへ渡す関数
     public void setLevelFragment(Integer voc_count, String selected_level) {
         FragmentManager fragmentManager = getSupportFragmentManager();
