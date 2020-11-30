@@ -1,5 +1,3 @@
-//todo: 「次へ」2周目以降のバックキーの挙動をどうにかする
-
 package com.example.hskapp;
 
 import android.content.Intent;
