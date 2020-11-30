@@ -55,14 +55,10 @@ public class ExerciseActivity extends AppCompatActivity {
 
         pressAnswer();
     }
-    /**backキー押下時の処理・戻るを押すとnumも減るようにする**/
+    /**backキー無効化**/
     @Override
     public void onBackPressed() {
-        if(num > 0 && incorrect_list.contains(num)) {
-            num--;
-            incorrect_list.remove(incorrect_list.size() - 1);
-        }
-        super.onBackPressed();
+
     }
 
     /**結果画面の「次へ」ボタン押下時の処理**/
