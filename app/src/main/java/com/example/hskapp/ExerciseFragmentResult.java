@@ -41,6 +41,8 @@ public class ExerciseFragmentResult extends Fragment {
         TextView resultTitle = view.findViewById(R.id.result_title);
         resultTitle.setText("演習結果・その" + getArguments().getString("単元"));
 
+        System.out.println(getArguments().getStringArrayList("中国語"));
+
         /**リザルト画面に表示されるテキストを作成してListViewへ**/
        for(int i=0; i<getArguments().getInt("番号"); i++) {
            String result_cell = getArguments().getStringArrayList("中国語").get(i) + "(" + getArguments().getStringArrayList("拼音").get(i) + ")" + "：" + getArguments().getStringArrayList("日本語").get(i);
@@ -54,6 +56,8 @@ public class ExerciseFragmentResult extends Fragment {
        final ArrayAdapter adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_list_item_1, result_list);
        ListView listView = (ListView) view.findViewById(R.id.result_list);
        listView.setAdapter(adapter);
+
+       result_list = new ArrayList<>();
 
 
         /**「一覧へ」ボタン押下時の処理：ExerciseActivityのfinishメソッドを呼び出してExerciseActivityを廃棄・numとincorrect_listをリセット **/
@@ -77,7 +81,9 @@ public class ExerciseFragmentResult extends Fragment {
         toNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /**LevelFragmentをlistViewで動かさない可能性があるので後回し**/
+                Integer current_unit = new Integer(getArguments().getString("単元")).intValue();
+                Integer next_unit = current_unit + 1;
+                ((ExerciseActivity)getContext()).goToNext(next_unit.toString());
             }
         });
     }

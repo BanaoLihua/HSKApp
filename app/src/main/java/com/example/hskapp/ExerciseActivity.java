@@ -46,30 +46,7 @@ public class ExerciseActivity extends AppCompatActivity {
         textUnit.setText("その" + unit);
 
         /** DB操作開始 **/
-        helper = new DatabaseHelper(this);
-        try {
-            helper.createDatabase();
-        }
-        catch (IOException e) {
-            throw new Error("Unable to create database");
-        }
-
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        String sql = "select num, voc_cn, voc_jp, pinyin, unit" + " from " + "level"+level + " " + "where" + " unit=" + unit;
-        try {
-            Cursor cursor = db.rawQuery(sql, null);
-            while(cursor.moveToNext()) {
-               list_num.add(cursor.getInt(0));
-               list_voc_cn.add(cursor.getString(1));
-               list_voc_jp.add(cursor.getString(2));
-               list_pinyin.add(cursor.getString(3));
-               list_unit.add(cursor.getInt(4));
-            }
-
-        } finally {
-            db.close();
-        }
+        getFromDB(unit, level);
         /** DB操作終了 **/
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -84,8 +61,15 @@ public class ExerciseActivity extends AppCompatActivity {
                 num++;
 
                 if(num >= list_voc_cn.size()) {
+                    System.out.println(list_voc_cn);
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -105,6 +89,12 @@ public class ExerciseActivity extends AppCompatActivity {
                 if(num >= list_voc_cn.size()) {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
                 }
                 else {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -115,6 +105,122 @@ public class ExerciseActivity extends AppCompatActivity {
         });
 
         /**「答え」ボタン押下時の処理**/
+        pressAnswer();
+    }
+    /**backキー押下時の処理・戻るを押すとnumも減るようにする**/
+    @Override
+    public void onBackPressed() {
+        if(num > 0 && incorrect_list.contains(num)) {
+            num--;
+            incorrect_list.remove(incorrect_list.size() - 1);
+        }
+        super.onBackPressed();
+    }
+    /***********************************************/
+
+    public void goToNext(String next_unit) {
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.result);
+        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        Intent intent = getIntent();
+        String level = intent.getStringExtra("Level");
+        final String unit = next_unit;
+        TextView textLevel = findViewById(R.id.level);
+        TextView textUnit = findViewById(R.id.unit);
+        textLevel.setText(level + "級");
+        textUnit.setText("その" + unit);
+
+        /** DB操作開始 **/
+        getFromDB(unit, level);
+        /** DB操作終了 **/
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+
+        /**「分かった」ボタン押下時の処理**/
+
+        Button correctButton = findViewById(R.id.correct);
+        correctButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                num++;
+                if(num >= list_voc_cn.size()) {
+                    System.out.println(list_voc_cn);
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit )).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+            }
+        });
+        /**「分からない」ボタン押下時の処理**/
+        final Button incorrectButton = findViewById(R.id.incorrect);
+        incorrectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                incorrect_list.add(num);
+                num++;
+
+                if(num >= list_voc_cn.size()) {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.result, ExerciseFragmentResult.newInstance(num, incorrect_list,list_voc_cn, list_voc_jp, list_pinyin, unit)).commit();
+                    list_num = new ArrayList<>();
+                    list_voc_cn = new ArrayList<>();
+                    list_voc_jp = new ArrayList<>();
+                    list_pinyin = new ArrayList<>();
+                    incorrect_list = new ArrayList<>();
+                    num = 0;
+                }
+                else {
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.container, ExerciseFragment.newInstance(num, list_voc_cn, list_voc_jp, list_pinyin)).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+            }
+        });
+
+        /**「答え」ボタン押下時の処理**/
+        pressAnswer();
+    }
+
+    public void getFromDB(String unit, String level) {
+        helper = new DatabaseHelper(this);
+        try {
+            helper.createDatabase();
+        }
+        catch (IOException e) {
+            throw new Error("Unable to create database");
+        }
+
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        String sql = "select num, voc_cn, voc_jp, pinyin, unit" + " from " + "level"+level + " " + "where" + " unit=" + unit;
+        try {
+            Cursor cursor = db.rawQuery(sql, null);
+            while(cursor.moveToNext()) {
+                list_num.add(cursor.getInt(0));
+                list_voc_cn.add(cursor.getString(1));
+                list_voc_jp.add(cursor.getString(2));
+                list_pinyin.add(cursor.getString(3));
+                list_unit.add(cursor.getInt(4));
+            }
+
+        } finally {
+            db.close();
+        }
+    }
+
+    public void pressAnswer(){
         Button answerButton = findViewById(R.id.answer);
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,14 +232,5 @@ public class ExerciseActivity extends AppCompatActivity {
                 pinyin.setVisibility(View.VISIBLE);
             }
         });
-    }
-    /**backキー押下時の処理・戻るを押すとnumも減るようにする**/
-    @Override
-    public void onBackPressed() {
-        if(num > 0 && incorrect_list.contains(num)) {
-            num--;
-            incorrect_list.remove(incorrect_list.size() - 1);
-        }
-        super.onBackPressed();
     }
 }
