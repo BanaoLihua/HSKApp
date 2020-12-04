@@ -16,9 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LevelActivity" android:label="@string/app_name"></activity>
+        <activity android:name=".LevelActivity" android:label="@string/level"></activity>
         <activity android:name=".MyvocActivity" android:label="@string/app_name"></activity>
-        <activity android:name=".ExerciseActivity" android:label="HSKApp"></activity>
+        <activity android:name=".ExerciseActivity" android:label="@string/exercise"></activity>
     </application>
 
 </manifest>

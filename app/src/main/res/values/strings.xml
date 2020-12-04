@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">HSKApp</string>
+    <string name="app_name">花花HSK単語</string>
     <string name="incorrect">わからない</string>
     <string name="correct">わかった</string>
     <string name="toNext">次へ</string>
     <string name="toList">一覧へ</string>
+    <string name="level">単元選択</string>
+    <string name="exercise">問題演習</string>
 </resources>
