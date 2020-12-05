@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /** My単語帳画面への遷移
         Button myvocButton = findViewById(R.id.button_myvoc);
         myvocButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,5 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(toMyvocIntent);
             }
         });
+         **/
     }
 }

@@ -1,52 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="5dp"
-    android:layout_gravity="center"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="2">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="406dp"
-        android:layout_height="408dp"
-        android:fontFamily="sans-serif"
-        android:paddingTop="200dp"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="40sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/app_name"
+            android:gravity="bottom"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            />
 
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/button_level"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="50dp"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignBottom="@id/textView"
-        android:background="@drawable/button_background1"
-        android:text="級別学習"
-        android:textSize="20dp"
-        android:textAlignment="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="4">
 
-    <Button
-        android:id="@+id/button_myvoc"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
-        android:layout_marginRight="50dp"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignBottom="@id/textView"
-        android:background="@drawable/button_background2"
-        android:text="My単語帳"
-        android:textSize="20dp"
-        />
+        <Button
+            android:id="@+id/button_level"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/tap_to_start"
+            android:text="Tap To Start!"
+            android:textSize="50dp" />
 
+    </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:textSize="20dp"
+            android:text="v1.00"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:text="Developed by Banao" />
+
+    </LinearLayout>
+
+</LinearLayout>
