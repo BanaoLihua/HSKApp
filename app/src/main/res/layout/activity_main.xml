@@ -37,7 +37,7 @@
             android:fontFamily="sans-serif-light"
             android:background="@drawable/tap_to_start"
             android:text="Tap To Start!"
-            android:textSize="50dp" />
+            android:textSize="30dp" />
 
     </LinearLayout>
 

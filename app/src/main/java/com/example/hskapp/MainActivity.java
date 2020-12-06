@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.graphics.Typeface;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         appName.setTypeface(customFont);
 
         Button levelButton = findViewById(R.id.button_level);
+        blinkBtn(levelButton, 1000, 500);
         levelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,5 +42,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
          **/
+    }
+
+    /**ボタンを点滅させる関数**/
+    private void blinkBtn(Button btn, long duration, long offset){
+        Animation anm = new AlphaAnimation(0.0f, 1.0f);
+        anm.setDuration(duration);
+        anm.setStartOffset(offset);
+        anm.setRepeatMode(Animation.REVERSE);
+        anm.setRepeatCount(Animation.INFINITE);
+        btn.startAnimation(anm);
     }
 }
