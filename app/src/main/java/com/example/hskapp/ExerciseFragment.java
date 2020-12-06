@@ -1,5 +1,6 @@
 package com.example.hskapp;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,9 +44,14 @@ public class ExerciseFragment extends Fragment {
             ArrayList<String> voc_jp = args.getStringArrayList("日本語");
             ArrayList<String> pinyin = args.getStringArrayList("拼音");
 
+            Typeface customFontCn = Typeface.createFromAsset(getActivity().getAssets(),"KaiTi.ttf");
+            Typeface customFontJp = Typeface.createFromAsset(getActivity().getAssets(),"HGSkyokasho001.ttf");
+
             TextView textViewCn = view.findViewById(R.id.voc_cn);
+            textViewCn.setTypeface(customFontCn);
             textViewCn.setText(voc_cn.get(num));
             TextView textViewJp = view.findViewById(R.id.voc_jp);
+            textViewJp.setTypeface(customFontJp);
             textViewJp.setText(voc_jp.get(num));
             TextView textViewPinyin = view.findViewById(R.id.pinyin);
             textViewPinyin.setText(pinyin.get(num));
